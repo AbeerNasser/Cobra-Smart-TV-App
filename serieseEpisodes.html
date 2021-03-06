@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar-eg">
+
+<head>
+    <title>COBRA IPTV</title>
+    <!-- Custom Stylesheet -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/fa/css/all.css" rel="stylesheet">
+    <script src="assets/js/jq.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+</head>
+
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;" onLoad="allchannels()">
+
+    <div class="container">
+        <div class="mainHeader">
+            <div class="row">
+
+                <div class="col-md-3 col-lg-3 col-xl-3" style="text-align:right;">
+                    <a data-toggle="modal" data-target="#searchModal"><img src="assets/images/search.png" width="30" /></a>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <center>
+                        <img src="assets/images/MainLogo.png" width="200" />
+                    </center>
+                </div>
+
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <a href="series.html"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="diver">
+
+        <div class="departments">
+
+            <h3 style="text-align:right; color:white;" id="depname"> </h3>
+            <br /><br />
+            <div class="row" id="demo">
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="search" id="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-success btn-block" onclick="search()">بحث</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script>
+            var queryString = decodeURIComponent(window.location.search);
+            queryString = queryString.substring(7);
+            var queries = queryString.split("&para2=");
+            for (var i = 0; i < queries.length; i++)
+            {
+                var derpartmentid = queries[0] ;
+                var derpartmentname = queries[1] ;
+            }
+ 
+			function allchannels(){
+				var username = sessionStorage.getItem("username")
+                var password = sessionStorage.getItem("password")
+
+				let credintials = {
+					username: username,
+					password: password,
+					action: "get_series"
+				};
+				$.ajax({
+			        url: "http://cobraa.in:8000/player_api.php",
+			        dataType: 'text',
+			        type: "post",
+	                contentType: 'application/x-www-form-urlencoded',
+			        data: credintials,
+			        dataType: 'json',
+			        success: function(data) {
+			           
+			            for (i = 0; i < data.length; i++) {   
+         
+                            if(data[i]["category_id"]==derpartmentid){
+                                var serieslid = data[i]["series_id"];
+                                // var querymovString = "?para1=" + channelid; 
+                                var append = '<div class="col-md-3 col-lg-3 col-xl-3"><a id=demo'+ i +' width="100"/></a></div>'
+    
+                                $("#demo").last().append(append);
+                                var demo = document.getElementById('demo'+i);
+
+                                demo.href=  "http://cobraa.in:8000/series/" + credintials['username'] + "/" + credintials['password'] + "/" + serieslid;
+                                var imgsrc = data[i]["cover"];
+                                var vedioname = data[i]["name"];
+                                document.getElementById('depname').innerHTML = derpartmentname;
+                                demo.innerHTML = '<div class="card" style="background-color:#23274a; margin-bottom:20px;">'+
+                                '<center><img src="'+imgsrc+'" width="120" style="padding-top:20px;"></center>'+
+                                '<br />'+
+                                '<p class="text-center text-light">'+vedioname+'</p>'+
+                                '</div>';
+                            }
+			            }
+			        }
+			    }).done(function(msg) {
+			        
+			    });
+			}
+		</script>
+</body>
+
+</html>
