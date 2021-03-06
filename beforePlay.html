@@ -129,7 +129,7 @@ $.fn.stars = function() {
             queryString = queryString.substring(7);
 
 			function movieDetails(){
-				let data = {
+				let credintials = {
 					username: "73377381913xe",
 				    password: "TgUAOLczeh",
 				    action: "get_vod_info",
@@ -140,7 +140,7 @@ $.fn.stars = function() {
 			        dataType: 'text',
 			        type: "post",
 	                contentType: 'application/x-www-form-urlencoded',
-			        data: data,
+			        data: credintials,
 			        dataType: 'json',
 			        success: function(data) {                             
                         var poster = document.getElementById('poster');
@@ -160,7 +160,7 @@ $.fn.stars = function() {
 
                         var play = document.getElementById('play');
                                 
-                        play.href = data['movie_data']["direct_source"];
+                        play.href = "http://cobraa.in:8000/movie/" + credintials['username'] + "/" + credintials['password'] + "/" + credintials['vod_id'];
 			        }
 			    }).done(function(msg) {
 			        
