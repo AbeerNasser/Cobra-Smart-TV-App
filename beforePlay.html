@@ -52,7 +52,7 @@ $.fn.stars = function() {
                 </div>
 
                 <div class="col-md-3 col-lg-3 col-xl-3">
-                    <a href="department.html"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
+                    <a id="back"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
                 </div>
             </div>
         </div>
@@ -72,10 +72,6 @@ $.fn.stars = function() {
                         <h1 id="moviename"></h1>
                         <div class="rates" id="rating">
                             <p>سنة العرض : <span id="year"></span></p>
-                            <!-- <img src="assets/images/rate.png" width="20" />
-                            <img src="assets/images/rate.png" width="20" />
-                            <img src="assets/images/rate.png" width="20" />
-                            <img src="assets/images/rateHalf.png" width="20" /> -->
                             <span class="stars" data-rating="3.5" data-num-stars="5" ></span>
                         
                         </div>
@@ -119,54 +115,58 @@ $.fn.stars = function() {
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
     <script>
-        $(function(){
-            $('.stars').stars();
-        });
-    </script>
-        <script>
-            var queryString = decodeURIComponent(window.location.search);
-            queryString = queryString.substring(7);
+        var queryString = decodeURIComponent(window.location.search);
+        queryString = queryString.substring(7);
 
-			function movieDetails(){
-				let credintials = {
-					username: "73377381913xe",
-				    password: "TgUAOLczeh",
-				    action: "get_vod_info",
-                    vod_id: queryString
-				};
-				$.ajax({
-			        url: "http://cobraa.in:8000/player_api.php",
-			        dataType: 'text',
-			        type: "post",
-	                contentType: 'application/x-www-form-urlencoded',
-			        data: credintials,
-			        dataType: 'json',
-			        success: function(data) {                             
-                        var poster = document.getElementById('poster');
-                        poster.src = data['info']["movie_image"];
+        function movieDetails(){
+            let credintials = {
+                username: "73377381913xe",
+                password: "TgUAOLczeh",
+                action: "get_vod_info",
+                vod_id: queryString
+            };
+            var derpartmentid = sessionStorage.getItem("derpartmentid");
+            var derpartmentname = sessionStorage.getItem("derpartmentname");
 
-                        var poster = document.getElementById('cast');
-                        cast.innerHTML = data['info']["cast"];
+            var queryBack = "?para1=" + derpartmentid + "&para2=" + derpartmentname;
+            console.log(derpartmentid);
+            var back = document.getElementById('back');
+            back.href = "department.html" + queryBack
 
-                        var plot=document.getElementById('plot');
-                        plot.innerHTML = data['info']["plot"];
+            $.ajax({
+                url: "http://cobraa.in:8000/player_api.php",
+                dataType: 'text',
+                type: "post",
+                contentType: 'application/x-www-form-urlencoded',
+                data: credintials,
+                dataType: 'json',
+                success: function(data) {                             
+                    var poster = document.getElementById('poster');
+                    poster.src = data['info']["movie_image"];
 
-                        var moviename=document.getElementById('moviename');
-                        moviename.innerHTML = data['movie_data']["name"];
+                    var poster = document.getElementById('cast');
+                    cast.innerHTML = data['info']["cast"];
+
+                    var plot=document.getElementById('plot');
+                    plot.innerHTML = data['info']["plot"];
+
+                    var moviename=document.getElementById('moviename');
+                    moviename.innerHTML = data['movie_data']["name"];
+                        
+                    var year=document.getElementById('year');
+                    year.innerHTML = data['info']["year"];
+
+                    var play = document.getElementById('play');
                             
-                        var year=document.getElementById('year');
-                        year.innerHTML = data['info']["year"];
-
-                        var play = document.getElementById('play');
-                                
-                        play.href = "http://cobraa.in:8000/movie/" + credintials['username'] + "/" + credintials['password'] + "/" + credintials['vod_id'];
-			        }
-			    }).done(function(msg) {
-			        
-			    });
-			}
-		</script>
+                    play.href = "http://cobraa.in:8000/movie/" + credintials['username'] + "/" + credintials['password'] + "/" + credintials['vod_id'];
+                }
+            }).done(function(msg) {
+                
+            });
+        }
+    </script>
          
 </body>
 
