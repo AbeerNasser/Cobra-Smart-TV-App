@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="ar-eg">
+
+<head>
+    <title>COBRA IPTV</title>
+    <!-- Custom Stylesheet -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/fa/css/all.css" rel="stylesheet">
+    <script src="assets/js/jq.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+</head>
+
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
+
+    <div class="container">
+        <div class="mainHeader">
+            <div class="row">
+
+                <!--<div class="col-md-8 col-lg-8 col-xl-8">
+                    <div class="headerItems">
+                        <ul>
+                            <li class="active"><a href="default.asp">الرئيسية</a></li>
+                            <li><a href="news.asp">أفلام</a></li>
+                            <li><a href="contact.asp">قنوات</a></li>
+                            <li><a href="about.asp">مسلسلات</a></li>
+                            <li><a href="about.asp">المفضلات</a></li>
+                        </ul>
+                    </div>
+                </div>-->
+
+                <div class="col-md-3 col-lg-3 col-xl-3" style="text-align:right;">
+                    <a data-toggle="modal" data-target="#searchModal"><img src="assets/images/search.png" width="30" /></a>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <center>
+                        <img src="assets/images/MainLogo.png" width="200" />
+                    </center>
+                </div>
+
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <a href="login.html"><img src="assets/images/logout.png" width="30" style="margin-right:20px;" /></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="diver">
+
+        <div class="navBoxes">
+            <div class="row">
+                
+                <!--Item-->
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <a href="movies.html" style="text-decoration:none;">
+                        <div class="card" style="background-color:#23274a;">
+                            <center><img src="assets/images/movies.png" width="120" style="padding:50px 0;"></center>
+                            <div class="card-body">
+                                <span class="btn btn-success btn-block">أفلام</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--Item-->
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <a href="#" style="text-decoration:none;">
+                        <div class="card" style="background-color:#676b8a;">
+                            <center><img src="assets/images/series.png" width="120" style="padding:50px 0;"></center>
+                            <div class="card-body">
+                                <span class="btn btn-success btn-block">مسلسلات</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--Item-->
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <a href="#" style="text-decoration:none;">
+                        <div class="card" style="background-color:#23274a;">
+                            <center><img src="assets/images/channels.png" width="120" style="padding:50px 0;"></center>
+                            <div class="card-body">
+                                <span class="btn btn-success btn-block">قنوات</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mainData">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <i class="fa fa-user" style="padding-left:20px;"></i>
+                                    إسم المستخدم :
+                                </th>
+                                <td style="text-align:right;">Sedra</td>
+
+                                <th>
+                                    <i class="fa fa-tv" style="padding-left:20px;"></i>
+                                    الاجهزة المتصلة :
+                                </th>
+                                <td style="text-align:right;">0</td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    <i class="fa fa-adjust" style="padding-left:20px;"></i>
+                                    حالة الإشتراك :
+                                </th>
+                                <td style="text-align:right; color:green;">ACTIVE</td>
+
+                                <th>
+                                    <i class="fa fa-asterisk" style="padding-left:20px;"></i>
+                                    إشتراك تجريبي :
+                                </th>
+                                <td style="text-align:right; color:red;">NO</td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    <i class="fa fa-calendar" style="padding-left:20px;"></i>
+                                    تاريخ بداية لإشتراك :
+                                </th>
+                                <td style="text-align:right;">01/01/2020</td>
+
+                                <th>
+                                    <i class="fa fa-calendar" style="padding-left:20px;"></i>
+                                    تاريخ نهاية لإشتراك :
+                                </th>
+                                <td style="text-align:right;">01/01/2021</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-success btn-block">بحث</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

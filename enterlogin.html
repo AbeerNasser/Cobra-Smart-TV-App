@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="ar-eg">
+
+<head>
+    <title>COBRA IPTV</title>
+    <!-- Custom Stylesheet -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/fa/css/all.css" rel="stylesheet">
+</head>
+
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="loginTop">
+                    <img src="assets/images/LoginLogo.png" width="250" />
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="loginForm">
+                    <p class="enterloginIcons"><i class="fa fa-user"></i></p>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="إسم المستخدم">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="loginForm">
+                    <p class="enterloginIcons"><i class="fa fa-key"></i></p>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="الرقم السري">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2"></div>
+            <div class="col-md-8 col-lg-8 col-xl-8">
+                <div class="loginFooter">
+                    <button type="submit" class="btn btn-success btn-block" onclick="login()">تسجيل الدخول</button>
+                </div>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2"></div>
+
+        </div>
+    </div>
+  
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+
+        function login(){
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            let credintials = {
+                    username: username,
+                    password: password
+            };
+            
+            $.ajax({
+                url: "http://cobraa.in:8000/player_api.php",
+                dataType: 'text',
+                type: "post",
+                contentType: 'application/x-www-form-urlencoded',
+                data: credintials,
+                dataType: 'json',
+                success: function(data) {
+
+                    if(data['server_info']){
+
+                        let credintials = {
+                                username: username,
+                                password: password,
+                                action: "get_vod_streams"
+                        };
+
+                        sessionStorage.setItem("username", username)
+                        sessionStorage.setItem("password", password)
+                        window.location = "main.html";
+
+                    }
+                    else{
+                        alert('error');
+                    }
+                }
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+.splashImg{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -130px;
+  margin-left: -100px;
+}
+.spinner{
+    text-align:center;
+    color:white;
+    font-size:30px;
+    padding-top:60px;
+}
+.loginTop
+{
+    text-align:center;
+    color:white;
+    padding-top:80px;
+    font-family:Tajawal;
+}
+.loginTop p
+{
+    font-size:20px;
+    padding-top:20px;
+}
+.loginBtn
+{
+    text-align:center;
+    padding-top:40px;
+    color:white;
+}
+.loginForm
+{
+    padding-top:40px;
+}
+.enterloginIcons
+{
+    color:white;
+    text-align:right;
+}
+.loginFooter
+{
+    padding-top:40px;
+    text-align:center;
+}
+.mainHeader
+{
+    padding-top:30px;
+}
+.headerItems
+{
+    direction:rtl;
+}
+.headerItems ul
+{
+  list-style-type: none;
+  margin: 0;
+  background-color: #23274a;
+  direction:RTL;
+  text-align: right;
+}
+.headerItems li
+{
+    float: right;
+}
+.headerItems li a
+{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 40px;
+    text-decoration: none;
+}
+.headerItems li a:hover:not(.active) {
+  background-color: #111;
+}
+.active {
+  background-color: #9b51e0;
+  border-radius:30px;
+}
+hr.diver {
+  border: 1px solid #7a7c90;
+  border-radius: 5px;
+  margin-top:30px;
+}
+.navBoxes
+{
+    margin-top:50px;
+}
+
+.mainData
+{
+    margin-top:50px;
+    margin-bottom:20px;
+}
+
+.mainData table
+{
+    background-color:#23274a;
+    color:white;
+    text-align:right;
+    border-radius:10px;
+}
+.departments
+{
+    margin-top:50px;
+    margin-bottom:20px;
+}
+.poster
+{
+    text-align:right;
+}
+.details
+{
+    text-align:right;
+    color:white;
+}
+.descriptionAr
+{
+    text-align:right;
+    padding-top:20px;
+}
+.cast
+{
+    text-align:right;
+    padding-top:20px;
+    color:#505050;
+}
+.play
+{
+    padding-top:20px;
+}
