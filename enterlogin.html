@@ -67,15 +67,18 @@
                 success: function(data) {
 
                     if(data['server_info']){
-
-                        let credintials = {
-                                username: username,
-                                password: password,
-                                action: "get_vod_streams"
-                        };
+                        var status = data['user_info']['status'];
+                        var exp_date = data['user_info']['exp_date'];
+                        var is_trial = data['user_info']['is_trial'];
+                        var active_cons = data['user_info']['active_cons'];
+                        var created_at = data['user_info']['created_at'];
 
                         sessionStorage.setItem("username", username)
-                        sessionStorage.setItem("password", password)
+                        sessionStorage.setItem("status", status)
+                        sessionStorage.setItem("exp_date", exp_date)
+                        sessionStorage.setItem("is_trial", is_trial)
+                        sessionStorage.setItem("active_cons", active_cons)
+                        sessionStorage.setItem("created_at", created_at)
                         window.location = "main.html";
 
                     }
@@ -87,6 +90,20 @@
         }
 
 
+    </script>
+    <script>
+        document.addEventListener('click', function (event) {
+            var title;
+            
+            clearPoppedData();
+            event.preventDefault();
+            
+            if (event.target.nodeName == 'A') {
+                stackElement = event.target.innerHTML;
+                history.pushState(stackElement, '', event.target.href);
+                pushData(stackElement);
+            }
+        }, false);
     </script>
 </body>
 
