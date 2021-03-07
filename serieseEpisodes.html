@@ -101,14 +101,14 @@
 			            for (i = 0; i < data.length; i++) {   
          
                             if(data[i]["category_id"]==derpartmentid){
-                                var serieslid = data[i]["series_id"];
+                                var seriesid = data[i]["series_id"];
                                 // var querymovString = "?para1=" + channelid; 
-                                var append = '<div class="col-md-3 col-lg-3 col-xl-3"><a id=demo'+ i +' width="100"/></a></div>'
+                                var append = '<div class="col-md-3 col-lg-3 col-xl-3"><a href="#" id=demo'+ i +' width="100"/></a></div>'
     
                                 $("#demo").last().append(append);
                                 var demo = document.getElementById('demo'+i);
 
-                                demo.href=  "http://cobraa.in:8000/series/" + credintials['username'] + "/" + credintials['password'] + "/" + serieslid;
+                                // demo.href=  "http://cobraa.in:8000/series/" + credintials['username'] + "/" + credintials['password'] + "/" + seriesid;
                                 var imgsrc = data[i]["cover"];
                                 var vedioname = data[i]["name"];
                                 document.getElementById('depname').innerHTML = derpartmentname;
