@@ -55,7 +55,7 @@
                         <div>
                             <p>سنة العرض : <span id="year"></span></p>
                             <!-- <span class="stars" data-rating="3.5" data-num-stars="5" ></span> -->
-                            <b>Rating: <span id=stars></span></b>
+                            <b><span class="stars" data-rating="3.5" data-num-stars="5" id=stars></span></b>
                         </div>
                       
                         <div class="descriptionAr" id="plot"></div>
@@ -74,33 +74,10 @@
 
     </div>
 
-    <!-- Search Modal -->
-    <!-- <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <input type="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-success btn-block">بحث</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">إغلاق</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <script>
-        var ratingval;
+        // var ratingval;
         var queryString = decodeURIComponent(window.location.search);
         queryString = queryString.substring(7);
 
@@ -115,7 +92,7 @@
             var derpartmentname = sessionStorage.getItem("derpartmentname");
 
             var queryBack = "?para1=" + derpartmentid + "&para2=" + derpartmentname;
-            // console.log(derpartmentid);
+ 
             var back = document.getElementById('back');
             back.href = "department.html" + queryBack
 
@@ -147,7 +124,8 @@
                     play.href = "http://cobraa.in:8000/movie/" + credintials['username'] + "/" + credintials['password'] + "/" + credintials['vod_id'];
                 
                     ratingval = data['info']["rating"];
-                    console.log(ratingval);
+                    console.log(ratingval/2);
+                    document.getElementById("stars").innerHTML = getStars(ratingval/2);
                     
                 }
             }).done(function(msg) {
@@ -157,7 +135,7 @@
 
         // console.log(ratingval);
         //rating
-        document.getElementById("stars").innerHTML = getStars(ratingval);
+        
 
         function getStars(rating) {
 

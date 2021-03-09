@@ -9,6 +9,11 @@
     <link href="assets/css/fa/css/all.css" rel="stylesheet">
     <script src="assets/js/jq.js"></script>
     <script src="assets/js/bootstrap.js"></script>
+    <style>
+        .demo:hover,.demo:focus{
+            background: #fff;
+        }
+    </style>
 </head>
 
 <body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;" onLoad="allchannels()">
@@ -51,7 +56,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form>
+                    
                         <div class="row">
                             <div class="col-md-9">
                                 <input type="search" id="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
@@ -60,7 +65,7 @@
                                 <button type="submit" class="btn btn-success btn-block" onclick="search()">بحث</button>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">إغلاق</button>
@@ -71,6 +76,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 		<script>
+            var videos = [];
             var queryString = decodeURIComponent(window.location.search);
             queryString = queryString.substring(7);
             var queries = queryString.split("&para2=");
@@ -101,9 +107,10 @@
 			            for (i = 0; i < data.length; i++) {   
          
                             if(data[i]["category_id"]==derpartmentid){
+                                videos.push(data[i]);
                                 var seriesid = data[i]["series_id"];
-                                // var querymovString = "?para1=" + channelid; 
-                                var append = '<div class="col-md-3 col-lg-3 col-xl-3"><a href="#" id=demo'+ i +' width="100"/></a></div>'
+ 
+                                var append = '<div class="col-md-3 col-lg-3 col-xl-3 demo"><a href="#" id=demo'+ i +' width="100"/></a></div>'
     
                                 $("#demo").last().append(append);
                                 var demo = document.getElementById('demo'+i);
@@ -123,6 +130,32 @@
 			    }).done(function(msg) {
 			        
 			    });
+			}
+
+
+            function search(){
+				var search = document.getElementById('search').value;
+				console.log('xx');
+				$("#demo").empty();
+				for (i = 0; i < videos.length; i++) {
+					
+					if(videos[i]["name"].toLowerCase().includes(search.toLowerCase())){
+						var append = '<div class="col-md-3 col-lg-3 col-xl-3"><a id=demo'+ i +' width="100"/></a></div>'
+
+						$("#demo").last().append(append);
+						var demo = document.getElementById('demo'+i);
+
+						demo.href = videos[i]["direct_source"];
+						var imgsrc = videos[i]["stream_icon"];
+						var vedioname = videos[i]["name"];
+						demo.innerHTML = '<div class="card" style="background-color:#23274a; margin-bottom:20px;">'+
+						'<center><img src="'+imgsrc+'" width="120" style="padding-top:20px;"></center>'+
+						'<br />'+
+						'<p class="text-center text-light">'+vedioname+'</p>'+
+						'</div>';
+					}
+				}
+				
 			}
 		</script>
 </body>

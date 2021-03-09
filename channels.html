@@ -2,6 +2,7 @@
 <html lang="ar-eg">
 
 <head>
+    <meta charset="utf-8" /> 
     <title>COBRA IPTV</title>
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -39,8 +40,12 @@
 
             <h3 style="text-align:right; color:white;" id="depname"> </h3>
             <br /><br />
+            <!-- <video id="player" width="100%" height="auto" autoplay="autoplay" controls>
+                <source  type="video/mime" codecs="avc1.42E01E, mp4a.40.2">
+            </video>
+            <hr> -->
             <div class="row" id="demo">
-
+                
             </div>
         </div>
 
@@ -70,7 +75,8 @@
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-		<script>
+    <!-- <script src="jsmpeg.min.js"></script> -->
+        <script>
             var queryString = decodeURIComponent(window.location.search);
             queryString = queryString.substring(7);
             var queries = queryString.split("&para2=");
@@ -107,8 +113,12 @@
     
                                 $("#demo").last().append(append);
                                 var demo = document.getElementById('demo'+i);
-
-                                demo.href=  "http://cobraa.in:8000/" + credintials['username'] + "/" + credintials['password'] + "/" + channelid;
+                                demo.href= "http://cobraa.in:8000/" + credintials['username'] + "/" + credintials['password'] + "/" + channelid;
+                                // var player = new JSMpeg.Player('x' ,{loop: true, autoplay: true});
+                                // x=  "http://cobraa.in:8000/" + credintials['username'] + "/" + credintials['password'] + "/" + channelid;
+                                // demo.href=player;
+                                // var player = document.getElementById('player');
+                                // player.src=  "http://cobraa.in:8000/" + credintials['username'] + "/" + credintials['password'] + "/" + channelid;
                                 var imgsrc = data[i]["stream_icon"];
                                 var vedioname = data[i]["name"];
                                 document.getElementById('depname').innerHTML = derpartmentname;
