@@ -11,7 +11,7 @@
     <script src="assets/js/bootstrap.js"></script>
 </head>
 
-<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;" onLoad="userdata()">
 
     <div class="container">
         <div class="mainHeader">
@@ -99,13 +99,13 @@
                                     <i class="fa fa-user" style="padding-left:20px;"></i>
                                     إسم المستخدم :
                                 </th>
-                                <td style="text-align:right;">Sedra</td>
+                                <td id="username" style="text-align:right;">Sedra</td>
 
                                 <th>
                                     <i class="fa fa-tv" style="padding-left:20px;"></i>
                                     الاجهزة المتصلة :
                                 </th>
-                                <td style="text-align:right;">0</td>
+                                <td id="active_cons" style="text-align:right;">0</td>
                             </tr>
 
                             <tr>
@@ -113,13 +113,13 @@
                                     <i class="fa fa-adjust" style="padding-left:20px;"></i>
                                     حالة الإشتراك :
                                 </th>
-                                <td style="text-align:right; color:green;">ACTIVE</td>
+                                <td id="status" style="text-align:right; color:green;">ACTIVE</td>
 
                                 <th>
                                     <i class="fa fa-asterisk" style="padding-left:20px;"></i>
                                     إشتراك تجريبي :
                                 </th>
-                                <td style="text-align:right; color:red;">NO</td>
+                                <td id="is_trial" style="text-align:right; color:red;">NO</td>
                             </tr>
 
                             <tr>
@@ -127,13 +127,13 @@
                                     <i class="fa fa-calendar" style="padding-left:20px;"></i>
                                     تاريخ بداية لإشتراك :
                                 </th>
-                                <td style="text-align:right;">01/01/2020</td>
+                                <td id="created_at" style="text-align:right;">01/01/2020</td>
 
                                 <th>
                                     <i class="fa fa-calendar" style="padding-left:20px;"></i>
                                     تاريخ نهاية لإشتراك :
                                 </th>
-                                <td style="text-align:right;">01/01/2021</td>
+                                <td id="exp_date" style="text-align:right;">01/01/2021</td>
                             </tr>
 
                         </tbody>
@@ -169,6 +169,53 @@
             </div>
         </div>
     </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+
+        function userdata(){
+
+            var username = sessionStorage.getItem("username")
+            var status = sessionStorage.getItem("status")
+            var exp_date = sessionStorage.getItem("exp_date")
+            var is_trial = sessionStorage.getItem("is_trial")
+            var active_cons = sessionStorage.getItem("active_cons")
+            var created_at = sessionStorage.getItem("created_at")
+
+            var addUsername = document.getElementById('username');
+            var addStatus = document.getElementById('status');
+            var addExpDate = document.getElementById('exp_date');
+            var addIsTrial = document.getElementById('is_trial');
+            var addActiveCons = document.getElementById('active_cons');
+            var addCreatedAt = document.getElementById('created_at');
+
+            addUsername.innerHTML = username;
+            addStatus.innerHTML = status;
+            if(is_trial == 0){
+                addIsTrial.innerHTML = "NO";
+            }
+            else{
+                addIsTrial.innerHTML = Yes;
+            }
+            
+            addActiveCons.innerHTML = active_cons;
+
+            var created_at = new Date(created_at * 1000);
+            const currentDayOfMonth = created_at.getDate();
+            const currentMonth = created_at.getMonth();
+            const currentYear = created_at.getFullYear();
+            var created_at = currentDayOfMonth + "/" + (currentMonth + 1) + "/" + currentYear;
+            addCreatedAt.innerHTML = created_at;
+
+            var exp_date = new Date(exp_date * 1000);
+            const expCurrentDayOfMonth = exp_date.getDate();
+            const expCurrentMonth = exp_date.getMonth();
+            const expCurrentYear = exp_date.getFullYear();
+            var exp_date = expCurrentDayOfMonth + "/" + (expCurrentMonth + 1) + "/" + expCurrentYear;
+            addExpDate.innerHTML = exp_date;
+        }
+
+
+    </script>
 
 </body>
 
