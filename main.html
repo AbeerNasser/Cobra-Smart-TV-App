@@ -175,11 +175,15 @@
         function userdata(){
 
             var username = sessionStorage.getItem("username")
+            var password = sessionStorage.getItem("password")
             var status = sessionStorage.getItem("status")
             var exp_date = sessionStorage.getItem("exp_date")
             var is_trial = sessionStorage.getItem("is_trial")
             var active_cons = sessionStorage.getItem("active_cons")
             var created_at = sessionStorage.getItem("created_at")
+            
+            sessionStorage.setItem("username", username)
+            sessionStorage.setItem("password", password)
 
             var addUsername = document.getElementById('username');
             var addStatus = document.getElementById('status');
