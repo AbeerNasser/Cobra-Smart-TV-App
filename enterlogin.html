@@ -56,9 +56,18 @@
                     username: username,
                     password: password
             };
-            
+
+            var queryString = decodeURIComponent(window.location.search);
+            queryString = queryString.substring(6);
+            // console.log(queryString);
+            if (queryString == "servname1") {
+                serv="http://cobraa.in:8000/player_api.php";
+            } 
+            else {
+               serv= "http://ui-tv.se:2095/player_api.php";
+            }
             $.ajax({
-                url: "http://cobraa.in:8000/player_api.php",
+                url: serv,
                 dataType: 'text',
                 type: "post",
                 contentType: 'application/x-www-form-urlencoded',
@@ -90,20 +99,6 @@
         }
 
 
-    </script>
-    <script>
-        document.addEventListener('click', function (event) {
-            var title;
-            
-            clearPoppedData();
-            event.preventDefault();
-            
-            if (event.target.nodeName == 'A') {
-                stackElement = event.target.innerHTML;
-                history.pushState(stackElement, '', event.target.href);
-                pushData(stackElement);
-            }
-        }, false);
     </script>
 </body>
 
