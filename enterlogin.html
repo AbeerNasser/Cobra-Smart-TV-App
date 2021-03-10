@@ -58,8 +58,7 @@
             };
 
             var queryString = decodeURIComponent(window.location.search);
-            queryString = queryString.substring(6);
-            // console.log(queryString);
+            queryString = queryString.substring(7);
             if (queryString == "servname1") {
                 serv="http://cobraa.in:8000/player_api.php";
             } 
@@ -76,6 +75,7 @@
                 success: function(data) {
 
                     if(data['server_info']){
+
                         var status = data['user_info']['status'];
                         var exp_date = data['user_info']['exp_date'];
                         var is_trial = data['user_info']['is_trial'];
@@ -94,6 +94,9 @@
                     else{
                         alert('error');
                     }
+                },
+                error: function (jqXHR, exception) {
+                    alert('error');
                 }
             });
         }
