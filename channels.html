@@ -85,6 +85,9 @@
                 var derpartmentid = queries[0] ;
                 var derpartmentname = queries[1] ;
             }
+
+            sessionStorage.setItem("categoryid", derpartmentid)
+            sessionStorage.setItem("categoryname", derpartmentname)
  
 			function allchannels(){
 				var username = sessionStorage.getItem("username")
@@ -104,7 +107,7 @@
 			        dataType: 'json',
 			        success: function(data) {
 			           
-			            for (i = 0; i < data.length; i++) {   
+			            for (i = 1; i < data.length; i++) {   
          
                             if(data[i]["category_id"]==derpartmentid){
                                 var channelid = data[i]["stream_id"];
@@ -113,7 +116,7 @@
     
                                 $("#demo").last().append(append);
                                 var demo = document.getElementById('demo'+i);
-                                demo.href= "http://cobraa.in:8000/" + credintials['username'] + "/" + credintials['password'] + "/" + channelid;
+                                demo.href= "liveStream.html?" + channelid;
                                 // var player = new JSMpeg.Player('x' ,{loop: true, autoplay: true});
                                 // x=  "http://cobraa.in:8000/" + credintials['username'] + "/" + credintials['password'] + "/" + channelid;
                                 // demo.href=player;
