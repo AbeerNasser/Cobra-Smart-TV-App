@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar-eg">
+
+<head>
+    <meta charset="utf-8" /> 
+    <title>COBRA IPTV</title>
+    <!-- Custom Stylesheet -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/fa/css/all.css" rel="stylesheet">
+    <script src="assets/js/jq.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="https://cdn.jwplayer.com/libraries/4v3fuIwe.js"></script>
+</head>
+
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
+
+    <div class="container">
+        <div class="mainHeader">
+            <div class="row">
+
+                <div class="col-md-3 col-lg-3 col-xl-3" style="text-align:right;">
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <center>
+                        <img src="assets/images/MainLogo.png" width="200" />
+                    </center>
+                </div>
+
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <a id="back"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="diver">
+
+        <div>
+            <video id="mediaplayer" type='video/x-matroska; codecs="theora, vorbis"' autoplay controls width="900" height="500">
+            </video>
+            
+        </div>
+
+    </div>
+
+    <script>
+
+        var seriesId = sessionStorage.getItem("seriesId");
+
+        var queryBack = "?" + seriesId;
+
+        var back = document.getElementById('back');
+        back.href = "seriesDetails.html" + queryBack
+
+        var queryString = decodeURIComponent(window.location.search);
+        epicId = queryString.substring(1);
+        var video = document.getElementById("mediaplayer");
+        video.src = "http://cobraa.in:8000/series/73377381913xe/TgUAOLczeh/"+ epicId +".mkv";
+	</script>
+</body>
+
+</html>
