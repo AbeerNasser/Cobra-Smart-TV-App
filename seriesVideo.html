@@ -56,7 +56,16 @@
         var queryString = decodeURIComponent(window.location.search);
         epicId = queryString.substring(1);
         var video = document.getElementById("mediaplayer");
-        video.src = "http://cobraa.in:8000/series/73377381913xe/TgUAOLczeh/"+ epicId +".mkv";
+        var username = sessionStorage.getItem("username")                
+        var password = sessionStorage.getItem("password")
+        var server = sessionStorage.getItem("server")
+
+        if(server == 'servname1'){
+            video.src = "http://cobraa.in:8000/series/" + username + "/" + password + "/" + epicId +".mkv";
+        }
+        else{
+            video.src = "http://ui-tv.se:2095/series/" + username + "/" + password + "/" + epicId +".mkv";
+        }
 	</script>
 </body>
 

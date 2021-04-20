@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="col-md-3 col-lg-3 col-xl-3">
-                    <a href="login.html"><img src="assets/images/logout.png" width="30" style="margin-right:20px;" /></a>
+                    <a><img src="assets/images/logout.png" width="30" style="margin-right:20px;" onClick="logout()"/></a>
                 </div>
             </div>
         </div>
@@ -169,7 +169,7 @@
             </div>
         </div>
     </div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script>
 
         function userdata(){
@@ -216,6 +216,11 @@
             const expCurrentYear = exp_date.getFullYear();
             var exp_date = expCurrentDayOfMonth + "/" + (expCurrentMonth + 1) + "/" + expCurrentYear;
             addExpDate.innerHTML = exp_date;
+        }
+
+        function logout(){
+            sessionStorage.clear()
+            window.location.href = "login.html";
         }
 
 

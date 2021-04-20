@@ -13,7 +13,7 @@
     <script src="https://cdn.jwplayer.com/libraries/4v3fuIwe.js"></script>
 </head>
 
-<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;" onLoad="allchannels()">
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
 
     <div class="container">
         <div class="mainHeader">
@@ -36,8 +36,9 @@
 
         <hr class="diver">
 
-        <div id="mediaplayer">
-
+        <div>
+            <video id="mediaplayer" type="video/mp4" autoplay controls width="900" height="500">
+            </video>
             
         </div>
 
@@ -45,40 +46,24 @@
 
     <script>
 
-        var categoryid = sessionStorage.getItem("categoryid");
-        var categoryname = sessionStorage.getItem("categoryname");
+        var movieId = sessionStorage.getItem("movieId");
         var username = sessionStorage.getItem("username")
         var password = sessionStorage.getItem("password")
         var server = sessionStorage.getItem("server")
-
-        var queryBack = "?para1=" + categoryid + "&para2=" + categoryname;
+        var queryBack = "?para1=" + movieId;
 
         var back = document.getElementById('back');
-        back.href = "channels.html" + queryBack
+        back.href = "beforePlay.html" + queryBack
 
         var queryString = decodeURIComponent(window.location.search);
-        channelId = queryString.substring(1);
-
+        movieId = queryString.substring(1);
+        var video = document.getElementById("mediaplayer");
         if(server == 'servname1'){
-            var url = "http://cobraa.in:8000/";
+            video.src = "http://cobraa.in:8000/movie/"+username+"/"+password+"/"+ movieId +".mp4";
         }
         else{
-            var url = "http://ui-tv.se:2095/";
+            video.src = "http://ui-tv.se:2095/movie/"+username+"/"+password+"/"+ movieId +".mp4";
         }
-        
-	    jwplayer("mediaplayer").setup({
-
-		  file: url + "live/" + username + "/" + password + "/" + channelId +".m3u8",
-
-		  width: "100%",
-
-		  height: "100%",
-
-		  stretching: "bestfit",
-
-
-		});
-
 	</script>
 </body>
 

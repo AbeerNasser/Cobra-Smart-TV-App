@@ -74,8 +74,20 @@
         </div>
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 		<script>
+
+            var username = sessionStorage.getItem("username")                
+            var password = sessionStorage.getItem("password")
+            var server = sessionStorage.getItem("server")
+
+            if(server == 'servname1'){
+                var url = "http://cobraa.in:8000/player_api.php";
+            }
+            else{
+                var url = "http://ui-tv.se:2095/player_api.php";
+            }
+
             var videos = [];
             var queryString = decodeURIComponent(window.location.search);
             queryString = queryString.substring(7);
@@ -88,16 +100,14 @@
             sessionStorage.setItem("derpartmentid", derpartmentid)
             sessionStorage.setItem("derpartmentname", derpartmentname)
 			function allchannels(){
-				var username = sessionStorage.getItem("username")
-                var password = sessionStorage.getItem("password")
-
-				let credintials = {
+				
+                let credintials = {
 					username: username,
 					password: password,
 					action: "get_series"
 				};
 				$.ajax({
-			        url: "http://cobraa.in:8000/player_api.php",
+			        url: url,
 			        dataType: 'text',
 			        type: "post",
 	                contentType: 'application/x-www-form-urlencoded',
@@ -116,7 +126,6 @@
                                 $("#demo").last().append(append);
                                 var demo = document.getElementById('demo'+i);
 
-                                // demo.href=  "http://cobraa.in:8000/series/" + credintials['username'] + "/" + credintials['password'] + "/" + seriesid;
                                 var imgsrc = data[i]["cover"];
                                 var vedioname = data[i]["name"];
                                 document.getElementById('depname').innerHTML = derpartmentname;
@@ -136,24 +145,25 @@
 
             function search(){
 				var search = document.getElementById('search').value;
-				console.log('xx');
 				$("#demo").empty();
 				for (i = 0; i < videos.length; i++) {
 					
 					if(videos[i]["name"].toLowerCase().includes(search.toLowerCase())){
-						var append = '<div class="col-md-3 col-lg-3 col-xl-3"><a id=demo'+ i +' width="100"/></a></div>'
+						var seriesid = videos[i]["series_id"];
+ 
+                        var append = '<div class="col-md-3 col-lg-3 col-xl-3 demo"><a href="seriesDetails.html?'+seriesid+'" id="demo'+ i +'" width="100"/></a></div>'
 
-						$("#demo").last().append(append);
-						var demo = document.getElementById('demo'+i);
+                        $("#demo").last().append(append);
+                        var demo = document.getElementById('demo'+i);
 
-						demo.href = videos[i]["direct_source"];
-						var imgsrc = videos[i]["stream_icon"];
-						var vedioname = videos[i]["name"];
-						demo.innerHTML = '<div class="card" style="background-color:#23274a; margin-bottom:20px;">'+
-						'<center><img src="'+imgsrc+'" width="120" style="padding-top:20px;"></center>'+
-						'<br />'+
-						'<p class="text-center text-light">'+vedioname+'</p>'+
-						'</div>';
+                        var imgsrc = videos[i]["cover"];
+                        var vedioname = videos[i]["name"];
+                        document.getElementById('depname').innerHTML = derpartmentname;
+                        demo.innerHTML = '<div class="card" style="background-color:#23274a; margin-bottom:20px;">'+
+                        '<center><img src="'+imgsrc+'" width="120" style="padding-top:20px;"></center>'+
+                        '<br />'+
+                        '<p class="text-center text-light">'+vedioname+'</p>'+
+                        '</div>';
 					}
 				}
 				

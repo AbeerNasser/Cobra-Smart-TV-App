@@ -74,30 +74,40 @@
 
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <script>
         // var ratingval;
         var queryString = decodeURIComponent(window.location.search);
         queryString = queryString.substring(7);
+        sessionStorage.setItem("movieId", queryString)
+        var username = sessionStorage.getItem("username")
+        var password = sessionStorage.getItem("password")
+        var server = sessionStorage.getItem("server")
+        if(server == 'servname1'){
+            var url = "http://cobraa.in:8000/player_api.php";
+        }
+        else{
+            var url = "http://ui-tv.se:2095/player_api.php";
+        }
 
         function movieDetails(){
             let credintials = {
-                username: "73377381913xe",
-                password: "TgUAOLczeh",
+                username: username,
+                password: password,
                 action: "get_vod_info",
                 vod_id: queryString
             };
             var derpartmentid = sessionStorage.getItem("derpartmentid");
             var derpartmentname = sessionStorage.getItem("derpartmentname");
-
+            
             var queryBack = "?para1=" + derpartmentid + "&para2=" + derpartmentname;
  
             var back = document.getElementById('back');
             back.href = "department.html" + queryBack
 
             $.ajax({
-                url: "http://cobraa.in:8000/player_api.php",
+                url: url,
                 dataType: 'text',
                 type: "post",
                 contentType: 'application/x-www-form-urlencoded',
@@ -120,11 +130,11 @@
                     year.innerHTML = data['info']["year"];
 
                     var play = document.getElementById('play');
-                            
-                    play.href = "http://cobraa.in:8000/movie/" + credintials['username'] + "/" + credintials['password'] + "/" + credintials['vod_id'];
+                    play.href = "movieVideo.html?" + queryString;
+
+                    
                 
                     ratingval = data['info']["rating"];
-                    console.log(ratingval/2);
                     document.getElementById("stars").innerHTML = getStars(ratingval/2);
                     
                 }
@@ -132,8 +142,6 @@
                 
             });
         }
-
-        // console.log(ratingval);
         //rating
         
 

@@ -45,7 +45,7 @@
         </div>
     </div>
   
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script>
 
         function login(){
@@ -58,8 +58,8 @@
             };
 
             var queryString = decodeURIComponent(window.location.search);
-            queryString = queryString.substring(7);
-            if (queryString == "servname1") {
+            server = queryString.substring(7);
+            if (server == "servname1") {
                 serv="http://cobraa.in:8000/player_api.php";
             } 
             else {
@@ -84,6 +84,7 @@
 
                         sessionStorage.setItem("username", username)
                         sessionStorage.setItem("password", password)
+                        sessionStorage.setItem("server", server)
                         sessionStorage.setItem("status", status)
                         sessionStorage.setItem("exp_date", exp_date)
                         sessionStorage.setItem("is_trial", is_trial)
