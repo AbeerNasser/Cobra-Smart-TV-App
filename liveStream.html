@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" /> 
     <title>COBRA IPTV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -13,7 +14,7 @@
     <script src="https://cdn.jwplayer.com/libraries/4v3fuIwe.js"></script>
 </head>
 
-<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;" onLoad="allchannels()">
+<body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
 
     <div class="container">
         <div class="mainHeader">
@@ -37,12 +38,36 @@
         <hr class="diver">
 
         <div id="mediaplayer">
-
-            
+  
         </div>
 
     </div>
-
+    <script>
+        var mediaplayer = document.getElementById('mediaplayer').focus();
+        document.onkeydown = checkKey;
+        function checkKey(e) {
+            
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                var back = document.getElementById('back');
+                back.focus();
+                back.style.border = 'inset';         
+            } else if (e.keyCode == '40') {
+                // down arrow
+                var back = document.getElementById('back');
+                var mediaplayer = document.getElementById('mediaplayer');
+                mediaplayer.focus();
+                back.style.border = '';
+            } else if (e.keyCode == '37') {
+                // left arrow
+                
+            } else if (e.keyCode == '39') {
+                // right arrow
+                
+            }
+        }
+    </script>
     <script>
 
         var categoryid = sessionStorage.getItem("categoryid");
@@ -76,6 +101,9 @@
 
 		  stretching: "bestfit",
 
+          width: "100%",
+          
+          height: "100%",
 
 		});
 

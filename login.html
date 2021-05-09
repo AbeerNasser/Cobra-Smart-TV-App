@@ -2,6 +2,7 @@
 <html lang="ar-eg">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COBRA IPTV</title>
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -23,18 +24,50 @@
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3">
                 <div class="loginBtn">
-                    <a href="beforLogin.html" class="btn btn-success btn-lg btn-block">تسجيل الدخول</a>
+                    <a href="beforLogin.html" id="login" class="btn btn-success btn-lg btn-block">تسجيل الدخول</a>
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3">
                 <div class="loginBtn">
-                    <a href="https://ip-cobra.com/" target="_blank" class="btn btn-outline-success btn-lg btn-block">إشتراك جديد</a>
+                    <a href="https://ip-cobra.com/" id="register" target="_blank" class="btn btn-outline-success btn-lg btn-block">إشتراك جديد</a>
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3">
             </div>
         </div>
     </div>
+    <script>
+        var login = document.getElementById('login');
+        login.focus();
+        login.style.border = 'outset';
+        
+            document.onkeydown = checkKey;
+
+            function checkKey(e) {
+                e = e || window.event;
+                if (e.keyCode == '38') {
+                    // up arrow
+                    
+                } else if (e.keyCode == '40') {
+                    // down arrow
+                    
+                } else if (e.keyCode == '37') {
+                    // left arrow
+                    var register = document.getElementById('register');
+                    var login = document.getElementById('login');
+                    register.focus();
+                    login.style.border = 'none';
+                    register.style.border = 'outset';
+                } else if (e.keyCode == '39') {
+                    // right arrow
+                    var register = document.getElementById('register');
+                    var login = document.getElementById('login');
+                    login.focus();
+                    register.style.border = 'none';
+                    login.style.border = 'outset';
+                }
+            }
+    </script>
 </body>
 
 </html>

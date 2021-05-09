@@ -5,6 +5,7 @@
     <title>COBRA IPTV</title>
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/fa/css/all.css" rel="stylesheet">
     <script src="assets/js/jq.js"></script>
@@ -27,7 +28,7 @@
                 </div>
 
                 <div class="col-md-3 col-lg-3 col-xl-3">
-                    <a href="main.html"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
+                    <a id="back" href="main.html"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
                 </div>
             </div>
         </div>
@@ -40,8 +41,87 @@
         </div>
 
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        document.onkeydown = checkKey;
+        var back = document.getElementById('back');
+        back.focus();
+        back.style.border = 'inset'
+        var demo = 0;
+        var next;
+        var last;
+        function checkKey(e) {
+            
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                if(document.activeElement === document.getElementById(0) || document.activeElement === document.getElementById(1) || document.activeElement === document.getElementById(2)){
+                    var last = document.getElementById(demo);
+                    next = document.getElementById('back');
+                    last.blur();
+                    next.focus();
+                    next.style.border = 'inset'
+                }else{
+                    var last = document.getElementById(demo);
+                    demo -= 3;
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                    }else{
+                        demo += 3;
+                    }
+                }                
+            } else if (e.keyCode == '40') {
+                // down arrow
+                if(document.activeElement === document.getElementById('back')){
+                    var last = document.getElementById('back');
+                    next = document.getElementById('0');
+                    last.blur();
+                    next.focus();
+                    demo = 0;
+                    last.style.border = ''
+                }else{
+                    var last = document.getElementById(demo);
+                    demo += 3;
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                    }else{
+                        demo -= 3;
+                    }
+                }
+                
+            } else if (e.keyCode == '37') {
+                // left arrow
+                if(!(document.activeElement === document.getElementById('back'))){
+                    var last = document.getElementById(demo);
+                    demo += 1;
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                    }else{
+                        demo -= 1;
+                    }
+                }
+            } else if (e.keyCode == '39') {
+                // right arrow
+                if(!(document.activeElement === document.getElementById('back'))){
+                    var last = document.getElementById(demo);
+                    demo -= 1;
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                    }else{
+                        demo += 1;
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script>
         var username = sessionStorage.getItem("username")
         var password = sessionStorage.getItem("password")
@@ -71,10 +151,10 @@
                         var derpartmentid = data[i]["category_id"];
                         var derpartmentname = data[i]["category_name"];
                         var queryString = "?para1=" + derpartmentid + "&para2=" + derpartmentname;
-                        var append = '<div class="col-md-4 col-lg-4 col-xl-4"><a href="channels.html'+queryString+'" id=demo'+ i +' class="btn btn-light btn-lg btn-block" style="margin-bottom:20px;"/></a></div>'
+                        var append = '<div class="col-md-4 col-lg-4 col-xl-4"><a href="channels.html'+queryString+'" id='+ i +' class="btn btn-light btn-lg btn-block" style="margin-bottom:20px;"/></a></div>'
 
                         $("#demo").last().append(append);
-                        var demo = document.getElementById('demo'+i);
+                        var demo = document.getElementById(i);
                         
                         demo.innerHTML = derpartmentname;
                     }

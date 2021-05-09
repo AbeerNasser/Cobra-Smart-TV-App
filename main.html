@@ -3,6 +3,7 @@
 
 <head>
     <title>COBRA IPTV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -17,30 +18,17 @@
         <div class="mainHeader">
             <div class="row">
 
-                <!--<div class="col-md-8 col-lg-8 col-xl-8">
-                    <div class="headerItems">
-                        <ul>
-                            <li class="active"><a href="default.asp">الرئيسية</a></li>
-                            <li><a href="news.asp">أفلام</a></li>
-                            <li><a href="contact.asp">قنوات</a></li>
-                            <li><a href="about.asp">مسلسلات</a></li>
-                            <li><a href="about.asp">المفضلات</a></li>
-                        </ul>
-                    </div>
-                </div>-->
-
-                <div class="col-md-3 col-lg-3 col-xl-3" style="text-align:right;">
-                    <a data-toggle="modal" data-target="#searchModal"><img src="assets/images/search.png" width="30" /></a>
+                <div class="col-md-3 col-lg-3 col-xl-3 col-xs-3 col-sm-3" style="text-align:right;">
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="col-md-6 col-lg-6 col-xl-6 col-xs-6 col-sm-6">
                     <center>
                         <img src="assets/images/MainLogo.png" width="200" />
                     </center>
                 </div>
 
-                <div class="col-md-3 col-lg-3 col-xl-3">
-                    <a><img src="assets/images/logout.png" width="30" style="margin-right:20px;" onClick="logout()"/></a>
+                <div class="col-md-3 col-lg-3 col-xl-3 col-xs-3 col-sm-3">
+                    <a id="logout" onClick="logout()" href=""><img src="assets/images/logout.png" width="30" style="margin-right:20px;"/></a>
                 </div>
             </div>
         </div>
@@ -51,8 +39,8 @@
             <div class="row">
                 
                 <!--Item-->
-                <div class="col-md-4 col-lg-4 col-xl-4">
-                    <a href="movies.html" style="text-decoration:none;">
+                <div id="divMovies" class="col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xs-12">
+                    <a id="movies" href="movies.html" style="text-decoration:none;">
                         <div class="card" style="background-color:#23274a;">
                             <center><img src="assets/images/movies.png" width="120" style="padding:50px 0;"></center>
                             <div class="card-body">
@@ -63,8 +51,8 @@
                 </div>
 
                 <!--Item-->
-                <div class="col-md-4 col-lg-4 col-xl-4">
-                    <a href="series.html" style="text-decoration:none;">
+                <div id="divSeries" class="col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xs-12">
+                    <a id="series" href="series.html" style="text-decoration:none;">
                         <div class="card" style="background-color:#676b8a;">
                             <center><img src="assets/images/series.png" width="120" style="padding:50px 0;"></center>
                             <div class="card-body">
@@ -75,8 +63,8 @@
                 </div>
 
                 <!--Item-->
-                <div class="col-md-4 col-lg-4 col-xl-4">
-                    <a href="channelCategories.html" style="text-decoration:none;">
+                <div id="divChannels" class="col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xs-12">
+                    <a id="channels" href="channelCategories.html" style="text-decoration:none;">
                         <div class="card" style="background-color:#23274a;">
                             <center><img src="assets/images/channels.png" width="120" style="padding:50px 0;"></center>
                             <div class="card-body">
@@ -144,32 +132,89 @@
 
     </div>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        var movies = document.getElementById('movies');
+        var divMovies = document.getElementById('divMovies');
+        movies.focus();
+        divMovies.style.background = '#fff';
+        
+        document.onkeydown = checkKey;
 
+        function checkKey(e) {
+            // up arrow
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                var movies = document.getElementById('movies');
+                var series = document.getElementById('series');
+                var channels = document.getElementById('channels');
+                var logout = document.getElementById('logout');
+                var divMovies = document.getElementById('divMovies');
+                var divSeries = document.getElementById('divSeries');
+                var divChannels = document.getElementById('divChannels');
+                movies.blur();
+                series.blur();
+                channels.blur();
+                logout.focus();
+                divMovies.style.background = '';
+                divSeries.style.background = '';
+                divChannels.style.background = '';
+                logout.style.border = 'inset';
 
-
-    <!-- Search Modal -->
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <input type="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-success btn-block">بحث</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">إغلاق</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+                
+            } else if (e.keyCode == '40') {
+                // down arrow
+                var logout = document.getElementById('logout');
+                if(document.activeElement === logout){
+                    var movies = document.getElementById('movies');
+                    var divMovies = document.getElementById('divMovies');
+                    logout.blur();
+                    movies.focus();
+                    divMovies.style.background = '#fff';
+                    logout.style.border = '';
+                }
+                
+            } else if (e.keyCode == '37') {
+                // left arrow
+                var movies = document.getElementById('movies');
+                var series = document.getElementById('series');
+                var channels = document.getElementById('channels');
+                var divMovies = document.getElementById('divMovies');
+                var divSeries = document.getElementById('divSeries');
+                var divChannels = document.getElementById('divChannels');
+                if(document.activeElement === movies){
+                    movies.blur();
+                    series.focus();
+                    divSeries.style.background = '#fff';
+                    divMovies.style.background = '';
+                }else if(document.activeElement === series){
+                    series.blur();
+                    channels.focus();
+                    divChannels.style.background = '#fff';
+                    divSeries.style.background = '';
+                }
+            } else if (e.keyCode == '39') {
+                // right arrow
+                var movies = document.getElementById('movies');
+                var series = document.getElementById('series');
+                var channels = document.getElementById('channels');
+                var divMovies = document.getElementById('divMovies');
+                var divSeries = document.getElementById('divSeries');
+                var divChannels = document.getElementById('divChannels');
+                if(document.activeElement === channels){
+                    channels.blur();
+                    series.focus();
+                    divChannels.style.background = '';
+                    divSeries.style.background = '#fff';
+                }else if(document.activeElement === series){
+                    series.blur();
+                    movies.focus();
+                    divSeries.style.background = '';
+                    divMovies.style.background = '#fff';
+                }
+            }
+        }
+    </script>
     <script>
 
         function userdata(){
@@ -219,8 +264,9 @@
         }
 
         function logout(){
-            sessionStorage.clear()
-            window.location.href = "login.html";
+            sessionStorage.clear();
+            var logout = document.getElementById('logout');
+            logout.href = "login.html"
         }
 
 

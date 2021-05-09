@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" /> 
     <title>COBRA IPTV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -11,6 +12,25 @@
     <script src="assets/js/jq.js"></script>
     <script src="assets/js/bootstrap.js"></script>
     <script src="https://cdn.jwplayer.com/libraries/4v3fuIwe.js"></script>
+    <style>
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -100;
+        }
+
+        .fullscreen-bg__video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body style="background-color:#060a2f; direction:rtl; font-family:Tajawal;">
@@ -37,15 +57,42 @@
         <hr class="diver">
 
         <div>
-            <video id="mediaplayer" type="video/mp4" autoplay controls width="900" height="500">
+            <video id="mediaplayer" type="video/mp4" class="fullscreen-bg__video" autoplay controls width="900" height="500">
             </video>
             
         </div>
 
     </div>
-
     <script>
-
+        document.onkeydown = checkKey;
+        var mediaplayer = document.getElementById('mediaplayer');
+        mediaplayer.focus();
+        function checkKey(e) {
+            
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                var back = document.getElementById('back');
+                back.focus();
+                back.style.border = 'inset';         
+            } else if (e.keyCode == '40') {
+                // down arrow
+                var back = document.getElementById('back');
+                var mediaplayer = document.getElementById('mediaplayer');
+                mediaplayer.focus();
+                back.style.border = '';
+            } else if (e.keyCode == '37') {
+                // left arrow
+                
+            } else if (e.keyCode == '39') {
+                // right arrow
+                
+            }
+        }
+    </script>
+    <script>
+        var mediaplayer = document.getElementById('mediaplayer');
+        mediaplayer.focus();
         var movieId = sessionStorage.getItem("movieId");
         var username = sessionStorage.getItem("username")
         var password = sessionStorage.getItem("password")

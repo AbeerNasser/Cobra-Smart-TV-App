@@ -3,6 +3,7 @@
 
 <head>
     <title>COBRA IPTV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="col-md-3 col-lg-3 col-xl-3">
-                    <a id="back"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
+                    <a id="back" href=""><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
                 </div>
             </div>
         </div>
@@ -68,8 +69,99 @@
             </div>
         </div>
 
-    </div>
-
+    </div> 
+    <script>
+        var index = 0;
+        document.onkeydown = checkKey;
+        var back = document.getElementById('back');
+        back.focus();
+        back.style.border = 'inset';
+        var demo = 0;
+        var next;
+        var last;
+        function checkKey(e) {
+            
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                if(document.activeElement === document.getElementById(0) || document.activeElement === document.getElementById('epic'+1) || document.activeElement === document.getElementById('epic'+2) || document.activeElement === document.getElementById('epic'+3) || document.activeElement === document.getElementById('epic'+4)){
+                    var back = document.getElementById('back');
+                    back.focus();
+                }else if(index == 1){
+                    var last = document.getElementById(demo);
+                    demo--;
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        next.focus();
+                    }else{
+                        demo++;
+                    }    
+                }else{
+                    demo-=4;
+                    var next = document.getElementById('epic'+demo);
+                    if(next != null){
+                        next.focus();
+                    }else{
+                        demo+=4;
+                    }
+                }                
+            } else if (e.keyCode == '40') {
+                // down arrow
+                if(document.activeElement === document.getElementById('back')){
+                    var next = document.getElementById('0');
+                    var back = document.getElementById('back');
+                    next.focus();
+                    index=1;
+                    back.style.border = '';
+                }else if(index == 1){
+                    demo++
+                    next = document.getElementById(demo);
+                    if(next != null){
+                        next.focus();
+                    }else{
+                        demo--;
+                    }
+                }else{
+                    demo += 4;
+                    var next = document.getElementById('epic'+demo);
+                    if(next != null){
+                        next.focus();
+                    }else{
+                        demo -= 4;
+                    }
+                }
+            } else if (e.keyCode == '37') {
+                // left arrow
+                if(index == 0){
+                    demo++
+                    next = document.getElementById('epic'+demo);
+                    if(next != null){
+                        next.focus();
+                    }else{
+                        demo--;
+                    }
+                }
+            } else if (e.keyCode == '39') {
+                // right arrow
+                if(index == 1){
+                    var next = document.getElementById('epic1');
+                    if(next != null){
+                        next.focus();
+                        demo = 1;
+                        index=0;
+                    }
+                }else{
+                    demo--;
+                    var next = document.getElementById('epic'+demo);
+                    if(next != null){
+                        next.focus();
+                    }else{
+                        demo++;
+                    }
+                }
+            }
+        }
+    </script>
     <script>
         var username = sessionStorage.getItem("username")                
         var password = sessionStorage.getItem("password")
@@ -111,9 +203,7 @@
                 dataType: 'json',
                 success: function(data) {
                     epics = data['episodes'];
-                    console.log(data)
                     ratingval = data['info']["rating"];
-                    console.log(ratingval/2);
                     document.getElementById("stars").innerHTML = getStars(ratingval/2);
                     var poster = document.getElementById("poster");
                     poster.src = data['info']["cover"];
@@ -123,20 +213,22 @@
                     name.innerHTML = data['info']["name"];
                     for (i = 1; i < Object.keys(data['episodes']).length; i++) {
                         if(i==1){
-                            var append = '<a id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-warning btn-lg">'+i+'الجزء</a>';
+                            var append = '<button id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-warning btn-lg">'+i+'الجزء</button>';
                         }
                         else{
-                            append += '<a id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-success btn-lg">'+i+'الجزء</a>';
+                            append += '<button id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-success btn-lg">'+i+'الجزء</button>';
                         }
                     }
                     $("#episodes").last().append(append);
+                    var j = 0
                     for (i = 0; i < Object.keys(data['episodes'][1]).length; i++) {
                         if(i==0 ){
-                            var append = '<li><a href="seriesVideo.html?'+data['episodes'][1][i]['id']+'" class="btn btn-success">'+data['episodes'][1][i]['title']+'</a></li>';
+                            var append = '<li><a id="'+ j +'" href="seriesVideo.html?'+data['episodes'][1][i]['id']+'" class="btn btn-success btn-block" style="margin-bottom:20px;">'+data['episodes'][1][i]['title']+'</a></li>';
                         }
                         else{
-                            append += '<li><a href="seriesVideo.html?'+data['episodes'][1][i]['id']+'" class="btn btn-success">'+data['episodes'][1][i]['title']+'</a></li>';
+                            append += '<li><a id="'+ j +'" href="seriesVideo.html?'+data['episodes'][1][i]['id']+'" class="btn btn-success btn-block" style="margin-bottom:20px;">'+data['episodes'][1][i]['title']+'</a></li>';
                         }
+                        j++
                     }
                     $("#epic").last().append(append);
                     
@@ -167,30 +259,35 @@
         }
 
         function getEpisodes(seriesId) {
+            var next = document.getElementById('0');
+            next.focus();
+            demo=0;
+            index=1;
             $("#episodes").empty();
             for (i = 1; i < Object.keys(epics).length; i++) {
                 if(i==seriesId && i==1){
-                    var append = '<a id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-warning btn-lg">'+i+'الجزء</a>';
+                    var append = '<button id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-warning btn-lg">'+i+'الجزء</button>';
                 }
                 else if(i==1){
-                    var append = '<a id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-success btn-lg">'+i+'الجزء</a>';
+                    var append = '<button id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-success btn-lg">'+i+'الجزء</button>';
                 }
                 else if(i==seriesId){
-                    append += '<a id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-warning btn-lg">'+i+'الجزء</a>';
+                    append += '<button id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-warning btn-lg">'+i+'الجزء</button>';
                 }
                 else{
-                    append += '<a id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-success btn-lg">'+i+'الجزء</a>';
+                    append += '<button id="epic'+i+'" onclick="getEpisodes('+i+')" class="btn btn-success btn-lg">'+i+'الجزء</button>';
                 }
             }
             $("#episodes").last().append(append);
-
+            var j = 0;
             for (i = 0; i < Object.keys(epics[seriesId]).length; i++) {
                 if(i==0 ){
-                    var append = '<li><a href="seriesVideo.html?'+epics[seriesId][i]['id']+'" class="btn btn-success">'+epics[seriesId][i]['title']+'</a></li>';
+                    var append = '<li><a id="'+ j +'" href="seriesVideo.html?'+epics[seriesId][i]['id']+'" class="btn btn-success btn-block" style="margin-bottom:20px;">'+epics[seriesId][i]['title']+'</a></li>';
                 }
                 else{
-                    append += '<li><a href="seriesVideo.html?'+epics[seriesId][i]['id']+'" class="btn btn-success">'+epics[seriesId][i]['title']+'</a></li>';
+                    append += '<li><a id="'+ j +'" href="seriesVideo.html?'+epics[seriesId][i]['id']+'" class="btn btn-success btn-block"  style="margin-bottom:20px;">'+epics[seriesId][i]['title']+'</a></li>';
                 }
+                j++
             }
             $("#epic").empty();
             $("#epic").last().append(append);

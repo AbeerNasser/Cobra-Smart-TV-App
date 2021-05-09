@@ -3,6 +3,8 @@
 
 <head>
     <title>COBRA IPTV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"/>
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -24,7 +26,6 @@
             <div class="row">
 
                 <div class="col-md-3 col-lg-3 col-xl-3" style="text-align:right;">
-                    <a data-toggle="modal" data-target="#searchModal"><img src="assets/images/search.png" width="30" /></a>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-6">
@@ -74,8 +75,34 @@
 
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        document.onkeydown = checkKey;
+        var play = document.getElementById('play');
+        play.focus();
+        function checkKey(e) {
+            
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                var back = document.getElementById('back');
+                back.focus();
+                back.style.border = 'inset';         
+            } else if (e.keyCode == '40') {
+                // down arrow
+                var back = document.getElementById('back');
+                var play = document.getElementById('play');
+                play.focus();
+                back.style.border = '';
+            } else if (e.keyCode == '37') {
+                // left arrow
+                
+            } else if (e.keyCode == '39') {
+                // right arrow
+                
+            }
+        }
+    </script>
     <script>
         // var ratingval;
         var queryString = decodeURIComponent(window.location.search);

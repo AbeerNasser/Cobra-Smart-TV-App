@@ -3,6 +3,8 @@
 
 <head>
     <title>COBRA IPTV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"/>
     <!-- Custom Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -23,7 +25,7 @@
             <div class="row">
 
                 <div class="col-md-3 col-lg-3 col-xl-3" style="text-align:right;">
-                    <a data-toggle="modal" data-target="#searchModal"><img src="assets/images/search.png" width="30" /></a>
+                    <a id="search2" href="" data-toggle="modal" onclick="searchModel();" data-target="#searchModal"><img src="assets/images/search.png" width="30" /></a>
                 </div>
 
                 <div class="col-md-6 col-lg-6 col-xl-6">
@@ -33,7 +35,7 @@
                 </div>
 
                 <div class="col-md-3 col-lg-3 col-xl-3">
-                    <a href="series.html"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
+                    <a id="back" href="series.html"><img src="assets/images/back.png" width="30" style="margin-right:20px;" /></a>
                 </div>
             </div>
         </div>
@@ -51,30 +53,153 @@
 
     </div>
 
-    <!-- Search Modal -->
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <!-- Search Modal -->
+   <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    
-                        <div class="row">
-                            <div class="col-md-9">
-                                <input type="search" id="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-success btn-block" onclick="search()">بحث</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <input type="search" id="search" class="form-control" placeholder="بحث عن فيلم, قناة, مسلسل" />
                         </div>
-                    
+                        <div class="col-md-3">
+                            <button id="searchButton" type="submit" class="btn btn-success btn-block" onclick="search()">بحث</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">إغلاق</button>
+                    <button id="close" type="button" class="btn btn-secondary btn-block" data-dismiss="modal" onclick="closeModel();">إغلاق</button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    </div> 
+    <script>
+        var index = 0;
+        document.onkeydown = checkKey;
+        var search2 = document.getElementById('search2');
+        search2.focus();
+        search2.style.border = 'inset';
+        var demo = 0;
+        var next;
+        var last;
+        function checkKey(e) {
+            
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                if(index == 1 && document.activeElement != document.getElementById('searchButton')){
+                    var next = document.getElementById('search');
+                    next.focus();
+                }else if(document.activeElement === document.getElementById(0) || document.activeElement === document.getElementById(1) || document.activeElement === document.getElementById(2) || document.activeElement === document.getElementById(3)){
+                    var last = document.getElementById(demo);
+                    var divLast = document.getElementById('div'+demo);
+                    next = document.getElementById('search2');
+                    last.blur();
+                    next.focus();
+                    next.style.border = 'inset';
+                    divLast.style.background = '';
+                }else{
+                    var last = document.getElementById(demo);
+                    var divLast = document.getElementById('div'+demo);
+                    demo -= 4;
+                    var divNext = document.getElementById('div'+demo);
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                        divLast.style.background = '';
+                        divNext.style.background = '#fff';
+                    }else{
+                        demo += 4;
+                    }
+                }                
+            } else if (e.keyCode == '40') {
+                // down arrow
+                if(index == 1 && document.activeElement != document.getElementById('close')){
+                    var next = document.getElementById('close');
+                    next.focus();
+                }else if(document.activeElement === document.getElementById('back') || document.activeElement === document.getElementById('search2')){
+                    var back = document.getElementById('back');
+                    var search2 = document.getElementById('search2');
+                    next = document.getElementById('0');
+                    var divNext = document.getElementById('div0');
+                    next.focus();
+                    demo = 0;
+                    search2.style.border = '';
+                    back.style.border = '';
+                    next.style.border = 'inset';
+                    divNext.style.background = '#fff';
+                }else{
+                    var last = document.getElementById(demo);
+                    var divLast = document.getElementById('div'+demo);
+                    demo += 4;
+                    var next = document.getElementById(demo);
+                    var divNext = document.getElementById('div'+demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                        divLast.style.background = '';
+                        divNext.style.background = '#fff';
+                    }else{
+                        demo -= 4;
+                    }
+                }
+            } else if (e.keyCode == '37') {
+                // left arrow
+                if(index == 1 && document.activeElement === document.getElementById('search')){
+                    var next = document.getElementById('searchButton');
+                    next.focus();
+                }else if(!(document.activeElement === document.getElementById('back') || document.activeElement === document.getElementById('search2'))){
+                    var last = document.getElementById(demo);
+                    var divLast = document.getElementById('div'+demo);
+                    demo += 1;
+                    var divNext = document.getElementById('div'+demo);
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                        divLast.style.background = '';
+                        divNext.style.background = '#fff';
+                    }else{
+                        demo-=1;
+                    }
+                }else if(document.activeElement === document.getElementById('search2')){
+                    var back = document.getElementById('back');
+                    back.focus();
+                    var search2 = document.getElementById('search2');
+                    back.style.border = 'inset';
+                    search2.style.border = '';
+                }
+            } else if (e.keyCode == '39') {
+                // right arrow
+                if(index == 1 && document.activeElement === document.getElementById('searchButton')){
+                    var next = document.getElementById('search');
+                    next.focus();
+                }else if(!(document.activeElement === document.getElementById('back') || document.activeElement === document.getElementById('search2'))){
+                    var last = document.getElementById(demo);
+                    var divLast = document.getElementById('div'+demo);
+                    demo -= 1;
+                    var divNext = document.getElementById('div'+demo);
+                    var next = document.getElementById(demo);
+                    if(next != null){
+                        last.blur();
+                        next.focus();
+                        divLast.style.background = '';
+                        divNext.style.background = '#fff';
+                    }else{
+                        demo += 1;
+                    }
+                }else if(document.activeElement === document.getElementById('back')){
+                    var search2 = document.getElementById('search2');
+                    var back = document.getElementById('back');
+                    back.style.border = '';
+                    search2.style.border = 'inset';
+                    search2.focus();
+                }
+            }
+        }
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 		<script>
 
             var username = sessionStorage.getItem("username")                
@@ -114,17 +239,17 @@
 			        data: credintials,
 			        dataType: 'json',
 			        success: function(data) {
-			           
+			           var j =0;
 			            for (i = 0; i < data.length; i++) {   
          
                             if(data[i]["category_id"]==derpartmentid){
                                 videos.push(data[i]);
                                 var seriesid = data[i]["series_id"];
  
-                                var append = '<div class="col-md-3 col-lg-3 col-xl-3 demo"><a href="seriesDetails.html?'+seriesid+'" id="demo'+ i +'" width="100"/></a></div>'
+                                var append = '<div id="div' + j + '" class="col-md-3 col-lg-3 col-xl-3 demo"><a href="seriesDetails.html?'+seriesid+'" id="'+ j +'" width="100"/></a></div>'
     
                                 $("#demo").last().append(append);
-                                var demo = document.getElementById('demo'+i);
+                                var demo = document.getElementById(j);
 
                                 var imgsrc = data[i]["cover"];
                                 var vedioname = data[i]["name"];
@@ -134,6 +259,7 @@
                                 '<br />'+
                                 '<p class="text-center text-light">'+vedioname+'</p>'+
                                 '</div>';
+                                j++
                             }
 			            }
 			        }
@@ -142,19 +268,28 @@
 			    });
 			}
 
+            function searchModel(){
+                index = 1;
+            }
 
+            function closeModel(){
+                index = 0;
+                var search2 = document.getElementById('search2');
+                search2.focus();
+            }
             function search(){
 				var search = document.getElementById('search').value;
 				$("#demo").empty();
+                var j = 0;
 				for (i = 0; i < videos.length; i++) {
 					
 					if(videos[i]["name"].toLowerCase().includes(search.toLowerCase())){
 						var seriesid = videos[i]["series_id"];
  
-                        var append = '<div class="col-md-3 col-lg-3 col-xl-3 demo"><a href="seriesDetails.html?'+seriesid+'" id="demo'+ i +'" width="100"/></a></div>'
+                        var append = '<div id="div' + j + '" class="col-md-3 col-lg-3 col-xl-3 demo"><a href="seriesDetails.html?'+seriesid+'" id="'+ j +'" width="100"/></a></div>'
 
                         $("#demo").last().append(append);
-                        var demo = document.getElementById('demo'+i);
+                        var demo = document.getElementById(j);
 
                         var imgsrc = videos[i]["cover"];
                         var vedioname = videos[i]["name"];
@@ -164,6 +299,7 @@
                         '<br />'+
                         '<p class="text-center text-light">'+vedioname+'</p>'+
                         '</div>';
+                        j++
 					}
 				}
 				
